@@ -3,11 +3,12 @@ import yt from './ytapi.js';
 const {uploadThumbnail, updateTitle} = yt;
 import fs from 'fs';
 import '../shared/constants.js';
+import secrets from './secrets.js';
 
 import {createCanvas} from 'canvas';
 const canvas = createCanvas(thumbnailW * pixelSize, thumbnailH * pixelSize);
 const ctx = canvas.getContext('2d');
-
+const ALLOWED_ORIGINS = ['https://youtubedrawsfork-1.onrender.com']
 global.thumbnail = [];
 
 for(let i = 0; i < thumbnailW; i++){
@@ -55,6 +56,13 @@ let id = 0;
 function generateId(){
     if(id > 100_000) id = 0;
     return id++;
+}
+
+
+
+function validateOrigin(origin){
+    if (!origin) return false;
+    return ALLOWED_ORIGINS.some(allowedOrigin=> origin === allowedOrigin);
 }
 
 global.app = uWS.App().ws('/*', {
@@ -114,6 +122,15 @@ global.app = uWS.App().ws('/*', {
     },
     upgrade: (res, req, context) => {
         const ip = getIp(res, req);
+       
+        const origin = req.getHeader('origin')
+
+        if (!validateOrigin(origin)) {
+            console.log('Rejecting connection: Invalid origin', origin);
+            res.writeStatus('403 Forbidden');
+            res.end('Forbidden: Invalid origin');
+            return;
+        }
 
         if(ip !== '0000:0000:0000:0000:0000:0000:0000:0001') {
             if(connectedIps[ip] === true){
@@ -267,8 +284,7 @@ app.post("/updateTitle", (res, req) => {
     })
 });
 
-import secrets from './secrets.js';
-const {titleVideoId, thumbnailVideoId} = secrets;
+//const {titleVideoId, thumbnailVideoId} = secrets;
 /*
 setInterval(() => {
     for(let i = 0; i < thumbnailW; i++){
