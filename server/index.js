@@ -44,7 +44,7 @@ function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-const PORT = 3000;
+const PORT = 8080;
 
 global.clients = {};
 const rateLimits = {};
