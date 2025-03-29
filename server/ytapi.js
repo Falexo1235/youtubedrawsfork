@@ -21,9 +21,9 @@ let ytLoaded = false, savedAuth;
   // Authorize a client with the loaded credentials, then call the YouTube API.
   import secrets from './secrets.js';
   const content = secrets.ytClientSecret;
-  authorize(/*JSON.parse(*/content/*)*/, (oAuth) => {console.log('successfully authenticated!'); ytLoaded = true; savedAuth = oAuth;});
+  //authorize(/*JSON.parse(*/content/*)*/, (oAuth) => {console.log('successfully authenticated!'); ytLoaded = true; savedAuth = oAuth;});
 // });
-
+/*
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
@@ -31,6 +31,7 @@ let ytLoaded = false, savedAuth;
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
+/*
 function authorize(credentials, callback) {
   let clientSecret = credentials.web.client_secret;
   let clientId = credentials.web.client_id;
@@ -47,7 +48,7 @@ function authorize(credentials, callback) {
     }
   });
 }
-
+*/
 /**
  * Get and store new token after prompting for user authorization, and then
  * execute the given callback with the authorized OAuth2 client.
