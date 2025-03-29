@@ -269,7 +269,7 @@ app.post("/updateTitle", (res, req) => {
 
 import secrets from './secrets.js';
 const {titleVideoId, thumbnailVideoId} = secrets;
-
+/*
 setInterval(() => {
     for(let i = 0; i < thumbnailW; i++){
         for(let j = 0; j < thumbnailH; j++){
@@ -291,3 +291,4 @@ setInterval(() => {
     console.log('unqueueing and updating', {nextTitle});
     updateTitle(nextTitle, titleVideoId);
 }, titleUpdateTime * 60 * 1000)
+*/
